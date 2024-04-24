@@ -57,12 +57,19 @@ class Swarm:
         for node in self._nodes:
             node.terminate()
 
+        # calculate error
+        positions = self.node_positions()
+        locals = self.node_localizations()
+        errors = np.linalg.norm(positions - locals, axis=1)
+        print('Distance Errors:')
+        print(errors)
+        print('Average Distance Error:')
+        print(np.average(errors[4:]))
+
         # plot error
         plt.figure()
         ax = plt.axes(xlim=xlim, ylim=ylim)
         ax.set_aspect('equal', 'box')
-        positions = self.node_positions()
-        locals = self.node_localizations()
         ax.scatter(
             positions[:, 0], positions[:, 1], c='None', s=marker_size, edgecolors='b', label='true position'
         )

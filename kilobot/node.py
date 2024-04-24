@@ -178,7 +178,7 @@ class Node(Thread):
             if np.random.random_sample() < loss_rate:
                 continue
             distance_neighbors.append(data)
-            if self.noisy_reading(neighbor.distance) < self._gradient_distance:
+            if neighbor.distance < self._gradient_distance:
                 gradient_neighbors.append(data)
         if len(distance_neighbors) != 0:
             self._neighbors['distance'] = distance_neighbors
